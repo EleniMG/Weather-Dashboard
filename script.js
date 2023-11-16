@@ -24,7 +24,14 @@ function displayCurrentWeatherData(data){
 
 
 function displayFutureWeatherData(data){
+    var startDate = dayjs()
 
+    var futureSection = $('#forecast')
+    var day1 = startDate.add(1, 'd')
+    var day2 = startDate.add(2, 'd')
+    var day3 = startDate.add(3, 'd')
+    var day4 = startDate.add(4, 'd')
+    var day5 = startDate.add(5, 'd')
 }
 
 $('.search-button').on('click', function(event){
