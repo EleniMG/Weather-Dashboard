@@ -27,13 +27,15 @@ function displayFutureWeatherData(data){
     var startDate = dayjs()
 
     var futureSection = $('#forecast')
-    var datesArray = []
+    
+    // var datesArray = []
 
     for (var i = 1; i <= 5; i++){
-        datesArray.push(startDate.add([i], 'd').format('dddd Do MMMM YYYY'))
+        var datesColumn = $('<div>').addClass('col').attr('data-days-after', [i])
+        futureSection.append(datesColumn)
+        // datesArray.push(startDate.add([i], 'd').format('dddd Do MMMM YYYY'))
+        datesColumn.append(startDate.add([i], 'd').format('dddd Do MMMM YYYY'))
     }
-
-    console.log(datesArray)
 
 }
 
