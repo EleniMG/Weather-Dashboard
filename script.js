@@ -6,7 +6,9 @@ $('.search-button').on('click', function(event){
     event.preventDefault();
     var usersCityEntry = $('.weather-search').val().trim();
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=56e83c8f1e65cf3c5412e2ae1f8c1687";
+    var yourAPIkey = "56e83c8f1e65cf3c5412e2ae1f8c1687"
+
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIkey;
 
     fetch(queryURL).then(function(response){
         return response.json();
@@ -15,7 +17,7 @@ $('.search-button').on('click', function(event){
         var today = dayjs().format('dddd Do MMMM YYYY')
         var currentTemperature = (data.list[0].main.temp - 273.15).toFixed(2)
         var currentWeatherCondition = data.list[0].weather[0].main;
-        var currentWeatherIcon = data.list[0].weather[0].icon;
+        var currentWeatherIcon =  $('<img>').attr("src", "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png").attr("alt", "Weather icon");
         var currentHumidity = data.list[0].main.humidity + "%";
         var currentWindSpeed = data.list[0].wind.speed + "m/s";
 
