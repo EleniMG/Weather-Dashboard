@@ -12,7 +12,11 @@ $('.search-button').on('click', function(event){
     }).then(function(data){
         var cityName = data.city.name;
         var today = dayjs().format('dddd Do MMMM YYYY')
-        console.log(cityName, today)
+        var currentTemperature = (data.list[0].main.temp - 273.15).toFixed(2)
+        var currentWeatherCondition = data.list[0].weather[0].main;
+        var currentWeatherIcon = data.list[0].weather[0].icon;
+        var currentHumidity = data.list[0].main.humidity + "%";
+        var currentWindSpeed = data.list[0].wind.speed + "m/s";
     })
 
 })
