@@ -36,7 +36,6 @@
                 <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
                   Search
                 </button>
-                <hr class="hr weather-hr" />
               </div>
             </div>
           </div>
@@ -53,6 +52,8 @@
 
   <!-- Day.js -->
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/advancedFormat.js"></script>
+  <script>dayjs.extend(window.dayjs_plugin_advancedFormat)</script>
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="script.js"></script>
