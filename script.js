@@ -2,6 +2,31 @@
 // Connect weather API Key
 // When you press search a location or press a button, create a function so that the current and future weather conditions are displayed
 
+function displayCurrentWeatherData(data){
+    var todaySection = $('#today')
+    var cityName = $('<h1>').text(data.city.name);
+
+    var today = $('<h2>').text("Today's date: " + dayjs().format('dddd Do MMMM YYYY'))
+    var currentTempDegrees = (data.list[0].main.temp - 273.15).toFixed(2)
+    var currentTempFahr = ((currentTempDegrees / 1.8) + 32).toFixed(2)
+    var currentTemperature = $('<p>').text("Current Temperature: " + currentTempDegrees + "°C / " + currentTempFahr + "°F")
+    var currentWeatherCondition = $('<p>').text("Condition: " + data.list[0].weather[0].main);
+    var currentWeatherIcon =  $('<img>').attr("src", "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png").attr("alt", "Weather icon");
+    var currentHumidity = $('<p>').text("Humidity: " +data.list[0].main.humidity + "%");
+    var currentWindSpeed = $('<p>').text("Wind Speed: " + data.list[0].wind.speed + "m/s");
+
+    todaySection.append(cityName, today, currentTemperature, currentWeatherCondition, currentWeatherIcon, currentHumidity, currentWindSpeed)
+}
+
+// Function for future weather data
+// Can create a table with 5 columns for the 5 days ahead
+
+
+
+function displayFutureWeatherData(data){
+
+}
+
 $('.search-button').on('click', function(event){
     event.preventDefault();
     var usersCityEntry = $('.weather-search').val().trim();
@@ -13,24 +38,16 @@ $('.search-button').on('click', function(event){
     fetch(queryURL).then(function(response){
         return response.json();
     }).then(function (data){
-        var cityName = data.city.name;
-        var today = dayjs().format('dddd Do MMMM YYYY')
-        var currentTemperature = (data.list[0].main.temp - 273.15).toFixed(2)
-        var currentWeatherCondition = data.list[0].weather[0].main;
-        var currentWeatherIcon =  $('<img>').attr("src", "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png").attr("alt", "Weather icon");
-        var currentHumidity = data.list[0].main.humidity + "%";
-        var currentWindSpeed = data.list[0].wind.speed + "m/s";
 
-    $('#today').append(cityName, today, currentTemperature, currentWeatherCondition, currentWeatherIcon, currentHumidity, currentWindSpeed)
+        displayCurrentWeatherData(data)
+
+        displayFutureWeatherData(data)
 
     })
 
 
 })
 
-
-
-// Create a weather conditions object to match a weather condition with the correpsonding icon
 
 // Add search result as a button
 
