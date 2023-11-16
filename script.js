@@ -27,11 +27,14 @@ function displayFutureWeatherData(data){
     var startDate = dayjs()
 
     var futureSection = $('#forecast')
-    var day1 = startDate.add(1, 'd')
-    var day2 = startDate.add(2, 'd')
-    var day3 = startDate.add(3, 'd')
-    var day4 = startDate.add(4, 'd')
-    var day5 = startDate.add(5, 'd')
+    var datesArray = []
+
+    for (var i = 1; i <= 5; i++){
+        datesArray.push(startDate.add([i], 'd').format('dddd Do MMMM YYYY'))
+    }
+
+    console.log(datesArray)
+
 }
 
 $('.search-button').on('click', function(event){
