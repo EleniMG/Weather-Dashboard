@@ -4,6 +4,7 @@
 
 function displayCurrentWeatherData(data){
     var todaySection = $('#today')
+    todaySection.empty();
     var cityName = $('<h1>').text(data.city.name);
 
     var today = $('<h2>').text("Today's date: " + dayjs().format('dddd Do MMMM YYYY'))
@@ -25,6 +26,8 @@ function displayFutureWeatherData(data){
     var startDate = dayjs()
 
     var futureSection = $('#forecast')
+
+    futureSection.empty();
 
     for (var i = 1; i <= 5; i++){
         var datesColumn = $('<div>').addClass('col').attr('data-days-after', [i])
@@ -51,16 +54,17 @@ var previousSearches = []
 
 function renderButtons(){
 
+    $('#history').empty();
+
     for (var j = 0; j < previousSearches.length; j++){
 
         var button = $('<button>');
         button.addClass('location');
-        button.attr('data-location', previousSearches[i]);
-        button.text(previousSearches[i]);
+        button.attr('data-location', previousSearches[j]);
+        button.text(previousSearches[j]);
         $('#history').append(button)
 
     }
-
 
 }
 
@@ -73,21 +77,31 @@ $('.search-button').on('click', function(event){
     event.preventDefault();
     var usersCityEntry = $('.weather-search').val().trim();
 
-    var yourAPIkey = "56e83c8f1e65cf3c5412e2ae1f8c1687"
-
+    var yourAPIkey = "56e83c8f1e65cf3c5412e2ae1f8c1687";
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIkey;
 
     fetch(queryURL).then(function(response){
         return response.json();
     }).then(function (data){
 
-        displayCurrentWeatherData(data)
+        if (!usersCityEntry  || data.city == undefined){
+            alert("Please enter a location to search")
+            // location.reload()
+    
+        } else {
+            previousSearches.push(usersCityEntry)
+    
+            displayCurrentWeatherData(data);
 
-        displayFutureWeatherData(data)
+            displayFutureWeatherData(data);
 
-        renderButtons()
+            renderButtons();
+
+            console.log(data.city.name)
+            
+       
+        }
+
+     })   
 
     })
-
-
-})
