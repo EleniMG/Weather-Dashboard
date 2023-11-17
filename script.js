@@ -76,6 +76,7 @@ function renderButtons(){
 $('.search-button').on('click', function(event){
     event.preventDefault();
     var usersCityEntry = $('.weather-search').val().trim();
+    usersCityEntry.charAt(1).toUpperCase();
 
     var yourAPIkey = "56e83c8f1e65cf3c5412e2ae1f8c1687";
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIkey;
