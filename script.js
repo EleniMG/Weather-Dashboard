@@ -88,7 +88,6 @@ $('.search-button').on('click', function(event){
     splitString.unshift(capitalLetter)
     var usersCityEntry = splitString.join("")
 
-    var yourAPIkey = "56e83c8f1e65cf3c5412e2ae1f8c1687";
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIkey;
 
     fetch(queryURL).then(function(response){
@@ -109,12 +108,28 @@ $('.search-button').on('click', function(event){
             renderButtons();
 
             addToStorage();
-
-            
-            
-       
+      
         }
 
      })   
 
     })
+
+
+    // Function for when the user selects a button from search history section
+    $('.location').on('click', function(event){
+        event.preventDefault();
+    
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + event.target.dataset.location + "&appid=" + yourAPIkey;
+    
+        fetch(queryURL).then(function(response){
+            return response.json();
+        }).then(function (data){
+    
+            displayCurrentWeatherData(data);
+    
+            displayFutureWeatherData(data);
+    
+         })   
+    
+        })
