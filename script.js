@@ -70,13 +70,23 @@ function renderButtons(){
 
 // Add search result to local storage
 
+function addToStorage(){
+    localStorage.setItem("searches", JSON.stringify(previousSearches))
+}
+
 // Create a function to clear previously searched buttons
 // Create a default/error message if location searched has no results
 
 $('.search-button').on('click', function(event){
     event.preventDefault();
-    var usersCityEntry = $('.weather-search').val().trim();
-    usersCityEntry.charAt(1).toUpperCase();
+    var userEntry = $('.weather-search').val().trim();
+    var splitString = userEntry.toLowerCase().split("");
+    var capitalLetter = splitString[0].toUpperCase();
+    splitString.shift([0])
+    splitString.unshift(capitalLetter)
+    var usersCityEntry = splitString.join("")
+
+    console.log(usersCityEntry)
 
     var yourAPIkey = "56e83c8f1e65cf3c5412e2ae1f8c1687";
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIkey;
@@ -98,7 +108,9 @@ $('.search-button').on('click', function(event){
 
             renderButtons();
 
-            console.log(data.city.name)
+            addToStorage();
+
+            
             
        
         }
