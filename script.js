@@ -50,10 +50,9 @@ function displayFutureWeatherData(data){
 
 // Add search result as a button
 
-var previousSearches = []
+var previousSearches = JSON.parse(localStorage.getItem("searches")) || []
 
 function renderButtons(){
-
     $('#history').empty();
 
     for (var j = 0; j < previousSearches.length; j++){
@@ -67,6 +66,9 @@ function renderButtons(){
     }
 
 }
+
+renderButtons()
+
 
 // Add search result to local storage
 
@@ -85,8 +87,6 @@ $('.search-button').on('click', function(event){
     splitString.shift([0])
     splitString.unshift(capitalLetter)
     var usersCityEntry = splitString.join("")
-
-    console.log(usersCityEntry)
 
     var yourAPIkey = "56e83c8f1e65cf3c5412e2ae1f8c1687";
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIkey;
