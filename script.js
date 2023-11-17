@@ -52,6 +52,22 @@ function displayFutureWeatherData(data){
 
 var previousSearches = JSON.parse(localStorage.getItem("searches")) || []
 
+// Function to clear storage and buttons
+// Create a button to clear results - using Bootstrap
+// Add event listener
+
+var clearButton = $('<button>').text('Clear Searches').addClass('btn-primary').addClass('clear').addClass('btn')
+
+clearButton.on('click', function(event){
+    event.preventDefault();
+
+    // previousSearches = [];
+
+    // localStorage.setItem("searches", JSON.stringify(previousSearches));
+    // renderButtons()
+
+})
+
 function renderButtons(){
     $('#history').empty();
 
@@ -59,11 +75,18 @@ function renderButtons(){
 
         var button = $('<button>');
         button.addClass('location');
+        // Adding Bootstrap buttons
+        button.addClass('btn');
+        button.addClass('btn-outline-success');
+        button.css('margin-top', "5px");
+        button.css('margin-bottom', "5px");
         button.attr('data-location', previousSearches[j]);
         button.text(previousSearches[j]);
         $('#history').append(button)
 
     }
+
+    $('#history').append(clearButton);
 
 }
 
@@ -117,9 +140,9 @@ $('.search-button').on('click', function(event){
 
 
     // Function for when the user selects a button from search history section
-    $('.location').on('click', function(event){
+    $('#history').on('click', function(event){
         event.preventDefault();
-    
+        
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + event.target.dataset.location + "&appid=" + yourAPIkey;
     
         fetch(queryURL).then(function(response){
