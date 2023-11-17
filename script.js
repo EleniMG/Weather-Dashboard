@@ -118,7 +118,7 @@ $('.search-button').on('click', function(event){
     }).then(function (data){
 
         if (!usersCityEntry  || data.city == undefined){
-            alert("Please enter a location to search")
+            alert("Please enter a valid location to search")
             // location.reload()
     
         } else {
