@@ -61,10 +61,9 @@ var clearButton = $('<button>').text('Clear Searches').addClass('btn-primary').a
 clearButton.on('click', function(event){
     event.preventDefault();
 
-    // previousSearches = [];
+    localStorage.removeItem("searches");
 
-    // localStorage.setItem("searches", JSON.stringify(previousSearches));
-    // renderButtons()
+    $('#history').empty();
 
 })
 
@@ -86,7 +85,7 @@ function renderButtons(){
 
     }
 
-    $('#history').append(clearButton);
+    $('aside').append(clearButton);
 
 }
 
