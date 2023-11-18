@@ -1,0 +1,7 @@
+#history {
+    pointer-events: none;
+}
+
+#history button {
+    pointer-events: initial;
+}

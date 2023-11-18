@@ -63,6 +63,8 @@ clearButton.on('click', function(event){
 
     localStorage.removeItem("searches");
 
+    previousSearches = []
+
     $('#history').empty();
 
 })
@@ -98,8 +100,21 @@ function addToStorage(){
     localStorage.setItem("searches", JSON.stringify(previousSearches))
 }
 
-// Create a function to clear previously searched buttons
-// Create a default/error message if location searched has no results
+
+function getAPIKey(){
+    var yourAPIKey = null;
+    
+    if (localStorage.getItem('api-key') === null){
+        yourAPIKey = prompt("Please enter your API key")
+        localStorage.setItem('api-key', yourAPIKey)
+    } else {
+        yourAPIKey = localStorage.getItem('api-key')
+    }
+
+    return yourAPIKey
+}
+
+
 
 $('.search-button').on('click', function(event){
     event.preventDefault();
@@ -110,13 +125,15 @@ $('.search-button').on('click', function(event){
     splitString.unshift(capitalLetter)
     var usersCityEntry = splitString.join("")
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIkey;
+    var yourAPIKey = getAPIKey()
+
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + usersCityEntry + "&appid=" + yourAPIKey;
 
     fetch(queryURL).then(function(response){
         return response.json();
     }).then(function (data){
 
-        if (!usersCityEntry  || data.city == undefined){
+        if (!usersCityEntry || data.city == undefined){
             alert("Please enter a valid location to search")
             // location.reload()
     
@@ -142,7 +159,8 @@ $('.search-button').on('click', function(event){
     $('#history').on('click', function(event){
         event.preventDefault();
         
-        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + event.target.dataset.location + "&appid=" + yourAPIkey;
+        var yourAPIKey = getAPIKey()
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + event.target.dataset.location + "&appid=" + yourAPIKey;
     
         fetch(queryURL).then(function(response){
             return response.json();
